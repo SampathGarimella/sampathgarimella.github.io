@@ -10,80 +10,175 @@
       --fg: #1e293b;
       --accent: #2563eb;
       --accent-hover: #1d4ed8;
-      --primary-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       --transition: 0.3s ease;
     }
-    [data-theme="dark"] {
-      --bg: #1e293b;
-      --fg: #f4f4f4;
-      --accent: #059669;
-      --accent-hover: #047857;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: var(--primary-font);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg);
       color: var(--fg);
-      line-height: 1.6;
-      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
     }
     header {
-      background: var(--accent);
+      position: relative;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
       color: white;
-      padding: 2rem;
       text-align: center;
+      padding: 4rem 1rem;
+      clip-path: polygon(0 0,100% 0,100% 80%,0 100%);
+    }
+    .hero-svg {
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 200px;
+    }
+    nav {
+      background: white;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 100;
     }
-    .theme-toggle {
+    nav a {
+      color: var(--fg);
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      padding: 0.5rem;
+    }
+    nav a::after {
+      content: '';
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: 2px solid white;
-      border-radius: 50%;
-      width: 2rem;
-      height: 2rem;
-      cursor: pointer;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background var(--transition);
+      left: 50%;
+      bottom: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: width var(--transition), left var(--transition);
     }
-    .theme-toggle:hover { background: rgba(255,255,255,0.2); }
-    nav { display: flex; justify-content: center; background: var(--bg); padding: 1rem 0; }
-    nav a { color: var(--fg); text-decoration: none; margin: 0 1rem; position: relative; transition: color var(--transition); }
-    nav a::after { content: ''; display: block; width: 0; height: 2px; background: var(--accent); transition: width var(--transition); position: absolute; bottom: -4px; left: 0; }
-    nav a:hover { color: var(--accent-hover); }
-    nav a:hover::after { width: 100%; }
-    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
-    section { margin-bottom: 4rem; }
-    h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
-    .timeline { border-left: 2px solid var(--accent); margin-left: 1rem; padding-left: 1rem; }
-    .timeline-item { margin-bottom: 2rem; position: relative; }
-    .timeline-item::before { content: ''; position: absolute; left: -10px; top: 0; background: var(--accent); width: 16px; height: 16px; border-radius: 50%; }
-    .skills { display: flex; flex-wrap: wrap; gap: 1rem; }
-    .skill { background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 20px; transition: transform var(--transition); }
-    .skill:hover { transform: scale(1.05); }
-    .chat-box { border: 1px solid #ccc; padding: 1rem; background: white; height: 300px; overflow-y: auto; }
+    nav a:hover::after {
+      width: 100%;
+      left: 0;
+    }
+    main { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    section {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    section.visible { opacity: 1; transform: translateY(0); }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    .timeline { border-left: 3px solid var(--accent); padding-left: 1rem; }
+    .timeline-item {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -11px;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background: var(--accent-hover);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .skill {
+      background: var(--accent);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: default;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .skill:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .chat-box {
+      border: 1px solid #ccc;
+      background: white;
+      height: 300px;
+      overflow-y: auto;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
     .message { margin: 0.5rem 0; }
     .user { font-weight: bold; color: var(--accent); }
     .ai { font-weight: bold; color: var(--accent-hover); }
-    .input-box { display: flex; align-items: center; margin-top: 1rem; }
-    .input-box input { flex: 1; padding: 0.5rem; border: 1px solid #ccc; }
-    .input-box button { padding: 0.5rem 1rem; background: var(--accent); color: white; border: none; cursor: pointer; transition: background var(--transition); }
+    .input-box {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    .input-box input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .input-box input:focus { border-color: var(--accent); }
+    .input-box button {
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
     .input-box button:hover { background: var(--accent-hover); }
-    .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; margin-left: 10px; display: none; }
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--accent);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      margin-left: 10px;
+      display: none;
+    }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Sampath Garimella</h1>
     <p>Full Stack Developer & AI Enthusiast</p>
-    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">☀️</button>
+    <!-- Decorative SVG blob -->
+    <svg class="hero-svg" viewBox="0 0 800 200" preserveAspectRatio="none">
+      <path fill="white" d="M0,100 C200,200 400,0 800,100 L800,200 L0,200 Z"></path>
+    </svg>
   </header>
 
   <nav>
@@ -95,12 +190,12 @@
   </nav>
 
   <main>
-    <section id="about">
+    <section id="about" class="reveal">
       <h2>About Me</h2>
       <p>I’m a seasoned Full Stack Developer specializing in logistics, healthcare, and telecom. I build scalable web & mobile applications using React, Node.js, TypeScript, AWS, and more.</p>
     </section>
 
-    <section id="experience">
+    <section id="experience" class="reveal">
       <h2>Experience</h2>
       <div class="timeline">
         <div class="timeline-item"><h3>Mastery Logistics Systems (Oct 2024 - Present)</h3><p>Optimized logistics workflows, built React/Redux dashboards, integrated GraphQL, and ensured high availability with Nginx load balancing.</p></div>
@@ -110,16 +205,29 @@
       </div>
     </section>
 
-    <section id="skills">
+    <section id="skills" class="reveal">
       <h2>Skills</h2>
       <div class="skills">
-        <div class="skill">JavaScript</div><div class="skill">TypeScript</div><div class="skill">React.js</div><div class="skill">Node.js</div><div class="skill">AWS</div>
-        <div class="skill">Azure</div><div class="skill">Docker</div><div class="skill">Kubernetes</div><div class="skill">GraphQL</div><div class="skill">Kafka</div>
-        <div class="skill">CI/CD</div><div class="skill">Jest</div><div class="skill">MongoDB</div><div class="skill">PostgreSQL</div><div class="skill">Nginx</div>
+        <!-- Animated skill chips -->
+        <div class="skill">JavaScript</div>
+        <div class="skill">TypeScript</div>
+        <div class="skill">React.js</div>
+        <div class="skill">Node.js</div>
+        <div class="skill">AWS</div>
+        <div class="skill">Azure</div>
+        <div class="skill">Docker</div>
+        <div class="skill">Kubernetes</div>
+        <div class="skill">GraphQL</div>
+        <div class="skill">Kafka</div>
+        <div class="skill">CI/CD</div>
+        <div class="skill">Jest</div>
+        <div class="skill">MongoDB</div>
+        <div class="skill">PostgreSQL</div>
+        <div class="skill">Nginx</div>
       </div>
     </section>
 
-    <section id="ai">
+    <section id="ai" class="reveal">
       <h2>AI Chat Assistant</h2>
       <div class="chat-box" id="chatBox">
         <div class="message"><span class="ai">AI:</span> Hello! Ask me anything about development or AI.</div>
@@ -131,12 +239,16 @@
       </div>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="reveal">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:sampath.garimella.dev@gmail.com">sampath.garimella.dev@gmail.com</a></p>
       <p>LinkedIn: <a href="https://linkedin.com/in/sampathgarimella" target="_blank">linkedin.com/in/sampathgarimella</a></p>
     </section>
   </main>
+
+  <footer>
+    &copy; 2025 Sampath Garimella
+  </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -149,6 +261,15 @@
           sendMessage();
         }
       });
+
+      // Scroll reveal
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach(section => observer.observe(section));
     });
 
     function toggleTheme() {
@@ -158,12 +279,11 @@
       document.querySelector('.theme-toggle').textContent = isDark ? '☀️' : '🌙';
     }
 
-    const googleApiKey = 'YOUR_GOOGLE_API_KEY';
+    const googleApiKey = 'AIzaSyADwxambwnlwGjDvfeiVk6rU3AV8MTUY5I';
     async function sendToLLM(prompt) {
       document.getElementById('loader').style.display = 'inline-block';
       try {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${googleApiKey}`;
-        console.log('Sending prompt to Gemini:', prompt);
         const res = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -171,18 +291,13 @@
         });
         if (!res.ok) {
           const errText = await res.text();
-          console.error('Gemini API error:', res.status, errText);
           return `API Error ${res.status}: ${errText}`;
         }
         const data = await res.json();
-        console.log('Gemini API response:', data);
-        if (!data.candidates || data.candidates.length === 0) {
-          return `Unexpected response: ${JSON.stringify(data)}`;
-        }
+        if (!data.candidates?.length) return 'No response from Gemini';
         return data.candidates[0].content.parts[0].text;
       } catch (e) {
-        console.error('Fetch error:', e);
-        return `Error fetching from Gemini: ${e.message}`;
+        return `Error: ${e.message}`;
       } finally {
         document.getElementById('loader').style.display = 'none';
       }
@@ -196,7 +311,6 @@
       chatBox.innerHTML += `<div class="message"><span class="user">You:</span> ${text}</div>`;
       input.value = '';
       chatBox.scrollTop = chatBox.scrollHeight;
-
       const reply = await sendToLLM(text);
       chatBox.innerHTML += `<div class="message"><span class="ai">AI:</span> ${reply}</div>`;
       chatBox.scrollTop = chatBox.scrollHeight;
