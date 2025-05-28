@@ -1,92 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sampath Garimella | Portfolio + AI Chat</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sampath Garimella | Portfolio</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
-    header { background: #1e293b; color: white; padding: 1.5rem; text-align: center; }
-    nav { background: #0f172a; display: flex; justify-content: center; }
-    nav a { color: white; padding: 1rem; text-decoration: none; display: inline-block; }
-    nav a:hover { background: #334155; }
-    main { padding: 2rem; max-width: 900px; margin: auto; }
-    .section { margin-bottom: 3rem; }
-    h2 { color: #1e293b; }
+    :root {
+      --bg: #f4f4f4;
+      --fg: #1e293b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --primary-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --transition: 0.3s ease;
+    }
+    [data-theme="dark"] {
+      --bg: #1e293b;
+      --fg: #f4f4f4;
+      --accent: #059669;
+      --accent-hover: #047857;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--primary-font);
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+    }
+    header {
+      background: var(--accent);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: 2px solid white;
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition);
+    }
+    .theme-toggle:hover { background: rgba(255,255,255,0.2); }
+    nav { display: flex; justify-content: center; background: var(--bg); padding: 1rem 0; }
+    nav a { color: var(--fg); text-decoration: none; margin: 0 1rem; position: relative; transition: color var(--transition); }
+    nav a::after { content: ''; display: block; width: 0; height: 2px; background: var(--accent); transition: width var(--transition); position: absolute; bottom: -4px; left: 0; }
+    nav a:hover { color: var(--accent-hover); }
+    nav a:hover::after { width: 100%; }
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    section { margin-bottom: 4rem; }
+    h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
+    .timeline { border-left: 2px solid var(--accent); margin-left: 1rem; padding-left: 1rem; }
+    .timeline-item { margin-bottom: 2rem; position: relative; }
+    .timeline-item::before { content: ''; position: absolute; left: -10px; top: 0; background: var(--accent); width: 16px; height: 16px; border-radius: 50%; }
+    .skills { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .skill { background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 20px; transition: transform var(--transition); }
+    .skill:hover { transform: scale(1.05); }
     .chat-box { border: 1px solid #ccc; padding: 1rem; background: white; height: 300px; overflow-y: auto; }
     .message { margin: 0.5rem 0; }
-    .user { font-weight: bold; color: #1d4ed8; }
-    .ai { font-weight: bold; color: #059669; }
-    .input-box { display: flex; margin-top: 1rem; }
-    input[type="text"] { flex: 1; padding: 0.5rem; }
-    button { padding: 0.5rem 1rem; background: #1d4ed8; color: white; border: none; cursor: pointer; }
-    button:hover { background: #2563eb; }
+    .user { font-weight: bold; color: var(--accent); }
+    .ai { font-weight: bold; color: var(--accent-hover); }
+    .input-box { display: flex; align-items: center; margin-top: 1rem; }
+    .input-box input { flex: 1; padding: 0.5rem; border: 1px solid #ccc; }
+    .input-box button { padding: 0.5rem 1rem; background: var(--accent); color: white; border: none; cursor: pointer; transition: background var(--transition); }
+    .input-box button:hover { background: var(--accent-hover); }
+    .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; margin-left: 10px; display: none; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
   <header>
     <h1>Sampath Garimella</h1>
-    <p>Full Stack Developer | AI Enthusiast | Problem Solver</p>
+    <p>Full Stack Developer & AI Enthusiast</p>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">☀️</button>
   </header>
+
   <nav>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
     <a href="#ai">AI Chat</a>
+    <a href="#contact">Contact</a>
   </nav>
+
   <main>
-    <section id="about" class="section">
+    <section id="about">
       <h2>About Me</h2>
-      <p>I’m a Full Stack Developer with hands-on experience in logistics, healthcare, and telecom, specializing in scalable web/mobile apps using React, Node.js, TypeScript, AWS, and more.</p>
+      <p>I’m a seasoned Full Stack Developer specializing in logistics, healthcare, and telecom. I build scalable web & mobile applications using React, Node.js, TypeScript, AWS, and more.</p>
     </section>
 
-    <section id="experience" class="section">
+    <section id="experience">
       <h2>Experience</h2>
-      <ul>
-        <li><strong>Mastery Logistics Systems</strong> – Full Stack Developer (2024–Present)</li>
-        <li><strong>UPMC</strong> – Full Stack Developer (2023–2024)</li>
-        <li><strong>Cigna</strong> – Full Stack Developer (2022–2023)</li>
-        <li><strong>Tech Mahindra</strong> – Web Developer (2021)</li>
-      </ul>
+      <div class="timeline">
+        <div class="timeline-item"><h3>Mastery Logistics Systems (Oct 2024 - Present)</h3><p>Optimized logistics workflows, built React/Redux dashboards, integrated GraphQL, and ensured high availability with Nginx load balancing.</p></div>
+        <div class="timeline-item"><h3>UPMC (Dec 2023 - Sep 2024)</h3><p>Deployed microservices on AWS, improved DB performance by 20%, and built dynamic UIs with Freemarker templating.</p></div>
+        <div class="timeline-item"><h3>Cigna (Jan 2022 - Nov 2023)</h3><p>Developed React Native apps, implemented CI/CD with Jenkins, and processed real-time data via Apache Kafka.</p></div>
+        <div class="timeline-item"><h3>Tech Mahindra (Jan 2021 - Dec 2021)</h3><p>Built responsive websites, improved load speeds by 20%, and maintained cross-browser compatibility.</p></div>
+      </div>
     </section>
 
-    <section id="skills" class="section">
+    <section id="skills">
       <h2>Skills</h2>
-      <p><strong>Languages:</strong> JavaScript, TypeScript, Python, Java<br>
-         <strong>Frameworks:</strong> React.js, Node.js, Spring Boot, Angular<br>
-         <strong>Cloud & Tools:</strong> AWS, Azure, Docker, Kubernetes, GraphQL, Kafka</p>
+      <div class="skills">
+        <div class="skill">JavaScript</div><div class="skill">TypeScript</div><div class="skill">React.js</div><div class="skill">Node.js</div><div class="skill">AWS</div>
+        <div class="skill">Azure</div><div class="skill">Docker</div><div class="skill">Kubernetes</div><div class="skill">GraphQL</div><div class="skill">Kafka</div>
+        <div class="skill">CI/CD</div><div class="skill">Jest</div><div class="skill">MongoDB</div><div class="skill">PostgreSQL</div><div class="skill">Nginx</div>
+      </div>
     </section>
 
-    <section id="ai" class="section">
+    <section id="ai">
       <h2>AI Chat Assistant</h2>
       <div class="chat-box" id="chatBox">
-        <div class="message"><span class="ai">AI:</span> Hello! I’m your AI assistant. Ask me anything!</div>
+        <div class="message"><span class="ai">AI:</span> Hello! Ask me anything about development or AI.</div>
       </div>
       <div class="input-box">
-        <input type="text" id="userInput" placeholder="Type a question...">
-        <button onclick="sendMessage()">Send</button>
+        <input type="text" id="userInput" placeholder="Type your question...">
+        <button id="sendBtn">Send</button>
+        <div id="loader" class="loader"></div>
       </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:sampath.garimella.dev@gmail.com">sampath.garimella.dev@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/sampathgarimella" target="_blank">linkedin.com/in/sampathgarimella</a></p>
     </section>
   </main>
 
   <script>
-    function sendMessage() {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('sendBtn').addEventListener('click', sendMessage);
+    });
+
+    function toggleTheme() {
+      const root = document.documentElement;
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.querySelector('.theme-toggle').textContent = isDark ? '☀️' : '🌙';
+    }
+
+    // Google Gemini LLM integration
+    const googleApiKey = 'AIzaSyADwxambwnlwGjDvfeiVk6rU3AV8MTUY5I';
+    async function sendToLLM(prompt) {
+      document.getElementById('loader').style.display = 'inline-block';
+      try {
+        const res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${googleApiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+          }
+        );
+        const data = await res.json();
+        return data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response from Gemini';
+      } catch (e) {
+        return `Error: ${e.message}`;
+      } finally {
+        document.getElementById('loader').style.display = 'none';
+      }
+    }
+
+    async function sendMessage() {
       const input = document.getElementById('userInput');
       const chatBox = document.getElementById('chatBox');
-      const userMsg = input.value.trim();
-      if (!userMsg) return;
-      chatBox.innerHTML += `<div class='message'><span class='user'>You:</span> ${userMsg}</div>`;
+      const text = input.value.trim();
+      if (!text) return;
+      chatBox.innerHTML += `<div class="message"><span class="user">You:</span> ${text}</div>`;
       input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
 
-      // Simulated AI response (can be replaced with OpenAI API call)
-      setTimeout(() => {
-        let reply = "That's an interesting question! I'm here to help you explore development and AI topics.";
-        if (userMsg.toLowerCase().includes("react")) reply = "React.js is a powerful library for building user interfaces — you're in good hands!";
-        if (userMsg.toLowerCase().includes("portfolio")) reply = "Your portfolio should highlight key projects, skills, and industry experience — and this site is a great start!";
-
-        chatBox.innerHTML += `<div class='message'><span class='ai'>AI:</span> ${reply}</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
-      }, 500);
+      const reply = await sendToLLM(text);
+      chatBox.innerHTML += `<div class="message"><span class="ai">AI:</span> ${reply}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
   </script>
 </body>
