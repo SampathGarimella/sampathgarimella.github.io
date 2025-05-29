@@ -5,19 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sampath Garimella | Portfolio</title>
   <style>
-    html { scroll-behavior: smooth; }
     :root {
-      --nav-height: 3rem;
       --bg: #0d1117;
       --fg: #c9d1d9;
       --accent: #58a6ff;
       --accent-hover: #79c0ff;
       --transition: 0.3s ease;
+      --nav-height: 3rem;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      padding-top: var(--nav-height); font-family: 'Fira Code', monospace; background: var(--bg); color: var(--fg); line-height: 1.6; overflow-x: hidden; }
-    header { background: var(--accent); color: #0d1117; padding: 3rem 1rem; position: relative; text-align: center; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Fira Code', monospace; background: var(--bg); color: var(--fg); line-height: 1.6; padding-top: var(--nav-height); overflow-x: hidden; }
+    header { background: var(--accent); color: #0d1117; padding: 3rem 1rem; text-align: center; }
     header h1 { font-size: 2.5rem; margin-bottom: 0.25rem; }
     header p { font-size: 1.1rem; margin-bottom: 1rem; }
     .btn-download { position: absolute; top: 1rem; right: 1rem; background: #0d1117; color: var(--accent); padding: 0.4rem 0.8rem; border: 1px solid var(--accent); border-radius: 4px; text-decoration: none; transition: background var(--transition), color var(--transition); }
@@ -25,32 +24,20 @@
     .stats { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1rem; }
     .stat { background: var(--accent); color: #0d1117; padding: 0.4rem 0.8rem; border-radius: 4px; font-family: 'Fira Code', monospace; transition: background var(--transition); }
     .stat:hover { background: var(--accent-hover); }
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: #161b22;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      padding: 0.75rem;
-      z-index: 100;
-      flex-wrap: wrap;
-    }
+    nav { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background: #161b22; display: flex; justify-content: center; align-items: center; gap: 1rem; padding: 0 1rem; z-index: 100; }
     nav a { color: var(--fg); text-decoration: none; font-weight: bold; transition: color var(--transition); }
     nav a:hover { color: var(--accent); }
     main { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
     section { margin-bottom: 3.5rem; opacity: 0; transform: translateY(30px); transition: all 0.6s ease; scroll-margin-top: calc(var(--nav-height) + 1rem); }
     section.visible { opacity: 1; transform: translateY(0); }
     h2 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--accent); border-bottom: 1px solid #30363d; padding-bottom: 0.5rem; }
-    .timeline { border-left: 2px solid var(--accent); padding-left: 2rem; margin-left: 0; }
+    .timeline { border-left: 2px solid var(--accent); padding-left: 2rem; }
     .timeline-item { position: relative; margin-bottom: 3rem; }
     .timeline-item::before { content: ''; position: absolute; left: -1rem; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; background: var(--accent-hover); border-radius: 50%; animation: pulse 2s infinite; }
     .timeline-item h3 { margin-bottom: 0.5rem; }
     .timeline-item .role { display: block; margin-bottom: 0.75rem; font-style: italic; color: #8b949e; font-size: 0.9rem; }
     .timeline-item p { margin-left: 0.75rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
-    @keyframes pulse { 0%,100% { transform: translateY(-50%) scale(1); opacity:1; } 50% { transform: translateY(-50%) scale(1.3); opacity:0.6; } }
+    @keyframes pulse {0%,100% {transform: translateY(-50%) scale(1); opacity:1;}50% {transform: translateY(-50%) scale(1.3); opacity:0.6;}}
     .skills { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .skill { background: #21262d; color: var(--accent); padding: 0.4rem 0.75rem; border-radius: 4px; font-family: 'Fira Code', monospace; }
     .skill:hover { background: #30363d; }
@@ -61,21 +48,12 @@
     .input-box { display: flex; margin-top: 0.8rem; }
     .input-box input { flex: 1; background: #0d1117; color: var(--fg); border: 1px solid #30363d; padding: 0.5rem; border-radius: 4px 0 0 4px; }
     .input-box input:focus { outline: none; border-color: var(--accent); }
-    .input-box button { background: var(--accent); color: #0d1117; border: none; padding: 0.5rem 1rem; border-radius: 0 4px 4px 0; cursor: pointer; transition: background var(--transition); }
+    .input-box button { background: var(--accent); color: #0d1117; border: none; padding: 0.5rem 1rem; border-radius: 0 4px 4px 0; cursor: pointer; }
     .input-box button:hover { background: var(--accent-hover); }
     .loader { border: 3px solid #21262d; border-top: 3px solid var(--accent); border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; margin-left: 6px; display: none; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes spin {0% {transform: rotate(0deg);}100% {transform: rotate(360deg);} }
     footer { text-align: center; padding: 1.5rem 0; color: #57606a; border-top: 1px solid #21262d; }
-    @media (max-width: 600px) {
-      header h1 { font-size: 2rem; }
-      header p { font-size: 1rem; }
-      nav { gap: 0.5rem; }
-      h2 { font-size: 1.5rem; }
-      .timeline { padding-left: 1rem; }
-      .timeline-item::before { left: -0.85rem; }
-      .timeline-item { margin-bottom: 2rem; }
-      .chat-box { height: 180px; }
-    }
+    @media (max-width: 600px) {header h1 {font-size: 2rem;}header p {font-size: 1rem;}nav {gap: 0.5rem;}h2 {font-size: 1.5rem;} .timeline {padding-left: 1rem;} .timeline-item::before {left: -0.85rem;} .timeline-item {margin-bottom: 2rem;} .chat-box {height: 180px;}}
   </style>
 </head>
 <body>
@@ -129,13 +107,11 @@
     <section id="skills" class="reveal">
       <h2>Skills</h2>
       <div class="skills">
-        <div class="skill">JavaScript</div><div class="skill">TypeScript</div><div class="skill">Python</div>
-        <div class="skill">Java</div><div class="skill">React.js</div><div class="skill">Node.js</div>
-        <div class="skill">Spring Boot</div><div class="skill">React Native</div><div class="skill">AWS</div>
-        <div class="skill">Docker</div><div class="skill">Kubernetes</div><div class="skill">GraphQL</div>
-        <div class="skill">Kafka</div><div class="skill">MongoDB</div><div class="skill">PostgreSQL</div>
-        <div class="skill">MySQL</div><div class="skill">Jenkins</div><div class="skill">Nginx</div>
-        <div class="skill">Freemarker</div><div class="skill">Jest</div><div class="skill">CI/CD</div>
+        <div class="skill">JavaScript</div><div class="skill">TypeScript</div><div class="skill">Python</div><div class="skill">Java</div>
+        <div class="skill">React.js</div><div class="skill">Node.js</div><div class="skill">Spring Boot</div><div class="skill">React Native</div><div class="skill">AWS</div>
+        <div class="skill">Docker</div><div class="skill">Kubernetes</div><div class="skill">GraphQL</div><div class="skill">Kafka</div>
+        <div class="skill">MongoDB</div><div class="skill">PostgreSQL</div><div class="skill">MySQL</div><div class="skill">Jenkins</div>
+        <div class="skill">Nginx</div><div class="skill">Freemarker</div><div class="skill">Jest</div><div class="skill">CI/CD</div>
         <div class="skill">Git & GitHub</div>
       </div>
     </section>
@@ -143,7 +119,6 @@
       <h2>AI</h2>
       <div class="chat-box" id="chatBox">
         <div class="message"><span class="ai">AI:</span> Hello! Ask me about myself and my technologies (JavaScript, TypeScript, React.js, Node.js, Python, Java, AWS, Azure, Docker, Kubernetes, GraphQL, Kafka, MongoDB, PostgreSQL, MySQL, Jenkins, Nginx, Freemarker, Jest, CI/CD, Git & GitHub).</div>
-      </div>
       </div>
       <div class="input-box">
         <input type="text" id="userInput" placeholder="Type your question...">
@@ -160,38 +135,97 @@
   <footer>&copy; 2025 Sampath Garimella</footer>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Smooth scroll offset
       document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         const navHeight = document.querySelector('nav').offsetHeight;
-        const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+        const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 10;
         window.scrollTo({ top: offsetTop, behavior: 'smooth' });
       }));
       document.querySelectorAll('.reveal').forEach(sec => {
-        new IntersectionObserver(entries => { entries.forEach(e => e.isIntersecting && sec.classList.add('visible')); }).observe(sec);
+        new IntersectionObserver(entries => { entries.forEach(e => e.isIntersecting && sec.classList.add('visible')); }, { threshold: 0.1 }).observe(sec);
       });
       document.getElementById('sendBtn').addEventListener('click', sendMessage);
       document.getElementById('userInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }});
     });
-    const googleApiKey = 'YOUR_GOOGLE_API_KEY';
+    const googleApiKey = 'AIzaSyADwxambwnlwGjDvfeiVk6rU3AV8MTUY5I';
     async function sendToLLM(prompt) {
       document.getElementById('loader').style.display = 'inline-block';
+      const systemMessage = {
+        author: 'system',
+        content: `SAMPATH GARIMELLA
+Los Angeles, CA | sampath.garimella.dev@gmail.com | (628) 309-5036 | LinkedIn | Github | Website
+
+SUMMARY
+Full Stack Developer with 4+ years of experience designing and delivering scalable web and mobile applications across logistics, healthcare, and telecommunications industries. Expert in JavaScript, React.js, Node.js, TypeScript, and cloud platforms (AWS, Azure). Proven track record in microservices architecture, CI/CD, API integrations, performance optimization, and agile methodologies.
+
+EXPERIENCE
+Mastery Logistics Systems – Atlanta, GA (Oct 2024 - Present)
+Role: Full Stack Developer
+• Developing solutions for carrier operations, focusing on managing driver data, routes, loads, and client interactions to optimize logistics workflows.
+• Increased operational efficiency by 25% by implementing features to optimize driver profiles, routes, and load data.
+• Implemented unit tests using Jest to ensure code stability and enhance the reliability of the application.
+• Crafted scalable user interfaces with React.js, TypeScript, and Redux, leveraging components for maintainability.
+• Spearheading the development of a logistics driver mobile app, integrating frontend and backend functionalities.
+• Configured Nginx for load balancing in production environments to ensure high-availability and scalability.
+• Integrated RESTful APIs and GraphQL for seamless data flow between frontend and backend services, improving data accuracy and system reliability.
+
+UPMC – Pittsburgh, PA (Dec 2023 – Sep 2024)
+Role: Full Stack Developer
+• Designed and implemented scalable full-stack solutions, enhancing robust healthcare technology platforms.
+• Deployed microservices on AWS using EC2 and Lambda to enhance scalability and reduce latency.
+• Built reusable backend services with Node.js and Docker, improving code reusability.
+• Worked with Freemarker for templating dynamic content and integrating data into web applications.
+• Increased application performance by 20% by designing and managing optimized database schemas with MongoDB and PostgreSQL, implementing advanced query optimizations.
+
+Cigna – Overland Park, KS (Jan 2022 – Nov 2023)
+Role: Full Stack Developer
+• Developed robust healthcare applications prioritizing scalability, performance, and user-focused design principles.
+• Implemented comprehensive full-stack solutions, optimizing workflows and boosting overall system efficiency.
+• Boosted user engagement by 10% through React Native mobile apps, expanding access to healthcare services.
+• Enhanced data processing efficiency by configuring Apache Kafka with Spring Cloud Stream for real-time analysis.
+
+Tech Mahindra (Jan 2021 – Dec 2021)
+Role: Web Developer
+• Contributed to the development of responsive and high-performing web applications, ensuring seamless user experiences and efficient backend integrations.
+• Improved website loading speed by 20% by implementing front-end optimizations using HTML5, CSS3, JavaScript, and Bootstrap, enhancing user experience.
+• Reduced front-end bug reports by 30% by implementing rigorous cross-browser testing and optimization strategies.
+
+TECHNICAL SKILLS
+Languages: JavaScript, TypeScript, Python, Java, HTML5, CSS3, SQL
+Frameworks & Libraries: React.js, Redux, Node.js, Spring Boot, React Native, Angular, Next.js, Bootstrap, Tailwind CSS, Django, Flask
+Databases: MongoDB, PostgreSQL, MySQL, Microsoft SQL Server, DynamoDB, Redis
+Other Tools & Technologies: AWS (Lambda, EC2, S3, CloudWatch, CloudFormation), Azure, Google Cloud Platform (GCP), Docker, Kubernetes, Terraform, Nginx, Freemarker, Jenkins, Kafka, GraphQL, Apollo, RESTful APIs, CI/CD, Elasticsearch, New Relic, Datadog, Grafana, Selenium, Cypress, Postman
+Development Practices: Agile Methodologies, Unit Testing (Jest), Version Control (Git, GitHub, GitLab, Bitbucket)
+Collaboration Tools: Jira, Confluence, Slack
+
+EDUCATION
+University at Buffalo SUNY, Master's Degree, Computer Science, Buffalo, NY
+KL University, Bachelor’s Degree, Computer Science, India
+`};
       try {
         const url = `https://generativelanguage.googleapis.com/v1beta1/models/chat-bison-001:generateMessage?key=${googleApiKey}`;
-        const res = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ prompt:{ messages:[{author:'system',content:'You are a helpful assistant.'},{author:'user',content:prompt}] } }) });
+        const body = JSON.stringify({ prompt: { messages: [systemMessage, { author: 'user', content: prompt }] } });
+        const res = await fetch(url, { method:'POST', headers:{ 'Content-Type':'application/json' }, body });
         if (!res.ok) { const err = await res.text(); return `API Error ${res.status}: ${err}`; }
-        const data = await res.json(); return data.candidates?.[0]?.content || 'No response';
-      } catch(e) { return `Error: ${e.message}`; } finally { document.getElementById('loader').style.display = 'none'; }
+        const data = await res.json();
+        return data.candidates?.[0]?.content || 'No response';
+      } catch(e) {
+        return `Error: ${e.message}`;
+      } finally {
+        document.getElementById('loader').style.display = 'none';
+      }
     }
     async function sendMessage() {
-      const i = document.getElementById('userInput'), c = document.getElementById('chatBox'), t = i.value.trim(); if (!t) return;
-      c.innerHTML += `<div class="message"><span class="user">You:</span> ${t}</div>`;
-      i.value = '';
-      c.scrollTop = c.scrollHeight;
-      const r = await sendToLLM(t);
-      c.innerHTML += `<div class="message"><span class="ai">AI:</span> ${r}</div>`;
-      c.scrollTop = c.scrollHeight;
+      const input = document.getElementById('userInput');
+      const chatBox = document.getElementById('chatBox');
+      const text = input.value.trim(); if (!text) return;
+      chatBox.innerHTML += `<div class="message"><span class="user">You:</span> ${text}</div>`;
+      input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+      const reply = await sendToLLM(text);
+      chatBox.innerHTML += `<div class="message"><span class="ai">AI:</span> ${reply}</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
   </script>
 </body>
