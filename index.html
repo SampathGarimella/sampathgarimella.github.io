@@ -28,6 +28,8 @@
     nav { position: sticky; top: 0; background: #161b22; display: flex; justify-content: center; gap: 1rem; padding: 0.75rem 1rem; z-index: 100; flex-wrap: wrap; }
     nav a { color: var(--fg); text-decoration: none; font-weight: bold; transition: color var(--transition); }
     nav a:hover { color: var(--accent); }
+    .download-nav { margin-left: auto; background: var(--accent); color: #0d1117; padding: 0.4rem 0.8rem; border: 1px solid var(--accent); border-radius: 4px; text-decoration: none; transition: background var(--transition), color var(--transition); font-weight: normal; }
+    .download-nav:hover { background: var(--accent-hover); }
     main { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
     section { margin-bottom: 3.5rem; opacity: 0; transform: translateY(30px); transition: all 0.6s ease; scroll-margin-top: 90px; }
     section.visible { opacity: 1; transform: translateY(0); }
@@ -61,7 +63,7 @@
   <header>
     <h1>Sampath Garimella</h1>
     <p>Full Stack Developer</p>
-    <a href="Sampath-Garimella | Resume.docx" download class="btn-download">Download Resume</a>
+    
     <div class="stats">
       <div class="stat">99% Test Coverage</div>
       <div class="stat">3× Performance Speed-up</div>
@@ -74,7 +76,8 @@
     <a href="#skills">Skills</a>
     <a href="#ai">AI</a>
     <a href="#contact">Contact</a>
-  </nav>
+    <a href="Sampath-Garimella | Resume.docx" download class="download-nav">Download Resume</a>
+</nav>
   <main>
     <section id="about" class="reveal">
       <h2>About Me</h2>
@@ -110,17 +113,20 @@
       <div class="skills">
         <div class="skill">JavaScript</div>
         <div class="skill">TypeScript</div>
-        <div class="skill">Python</div>
-        <div class="skill">Java</div>
         <div class="skill">React.js</div>
         <div class="skill">Node.js</div>
-        <div class="skill">Spring Boot</div>
-        <div class="skill">React Native</div>
+        <div class="skill">Python</div>
+        <div class="skill">Java</div>
         <div class="skill">AWS</div>
+        <div class="skill">Azure</div>
         <div class="skill">Docker</div>
         <div class="skill">Kubernetes</div>
         <div class="skill">GraphQL</div>
         <div class="skill">Kafka</div>
+        <div class="skill">MongoDB</div>
+        <div class="skill">PostgreSQL</div>
+        <div class="skill">CI/CD</div>
+        <div class="skill">Git</div>
       </div>
     </section>
     <section id="ai" class="reveal">
