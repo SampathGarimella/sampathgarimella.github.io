@@ -25,18 +25,10 @@
     .stats { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1rem; }
     .stat { background: var(--accent); color: #0d1117; padding: 0.4rem 0.8rem; border-radius: 4px; transition: background var(--transition); }
     .stat:hover { background: var(--accent-hover); }
-    nav {
-      position: sticky;
-      top: 0;
-      background: #161b22;
-      display: flex;
-      align-items: center;
-      padding: 0.75rem 1rem;
+    nav {$1padding: 1rem 1rem;
       z-index: 100;
     }
-    .nav-links {
-      display: flex;
-      gap: 1rem;
+    .nav-links {$1gap: 2rem;
       justify-content: center;
       flex: 1;
     }
@@ -48,6 +40,15 @@
       border-radius: 4px;
       text-decoration: none;
       transition: background var(--transition), color var(--transition);
+      margin-left: 1rem;
+    }
+    .download-nav:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Add padding to nav links */
+    .nav-links a {
+      padding: 0.5rem 0;
     }
     .download-nav:hover {
       background: var(--accent-hover);
