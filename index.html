@@ -25,7 +25,33 @@
     .stats { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1rem; }
     .stat { background: var(--accent); color: #0d1117; padding: 0.4rem 0.8rem; border-radius: 4px; transition: background var(--transition); }
     .stat:hover { background: var(--accent-hover); }
-    nav { position: sticky; top: 0; background: #161b22; display: flex; justify-content: center; gap: 1rem; padding: 0.75rem 1rem; z-index: 100; flex-wrap: wrap; }
+    nav {
+      position: sticky;
+      top: 0;
+      background: #161b22;
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      z-index: 100;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex: 1;
+    }
+    .download-nav {
+      background: var(--accent);
+      color: #0d1117;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition);
+    }
+    .download-nav:hover {
+      background: var(--accent-hover);
+    }
     nav a { color: var(--fg); text-decoration: none; font-weight: bold; transition: color var(--transition); }
     nav a:hover { color: var(--accent); }
     .download-nav { margin-left: auto; background: var(--accent); color: #0d1117; padding: 0.4rem 0.8rem; border: 1px solid var(--accent); border-radius: 4px; text-decoration: none; transition: background var(--transition), color var(--transition); font-weight: normal; }
@@ -71,13 +97,15 @@
     </div>
   </header>
   <nav>
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#ai">AI</a>
-    <a href="#contact">Contact</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#ai">AI</a>
+      <a href="#contact">Contact</a>
+    </div>
     <a href="Sampath-Garimella | Resume.docx" download class="download-nav">Download Resume</a>
-</nav>
+  </nav>
   <main>
     <section id="about" class="reveal">
       <h2>About Me</h2>
