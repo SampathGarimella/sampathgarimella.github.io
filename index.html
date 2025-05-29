@@ -50,16 +50,20 @@
     section { margin-bottom: 3rem; opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
     section.visible { opacity: 1; transform: translateY(0); }
     h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); border-bottom: 1px solid #30363d; padding-bottom: 0.5rem; }
-    .timeline { border-left: 2px solid var(--accent); padding-left: 1rem; margin-left: 0.5rem; }
+    .timeline {
+      border-left: 2px solid var(--accent);
+      margin: 0;             /* Remove extra left margin */
+      padding-left: 2rem;    /* Increase padding for alignment */
+    }
     .timeline-item { position: relative; margin-bottom: 2rem; }
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -0.75rem;
+      left: -1rem;               /* Align dot closer to timeline line */
       top: 50%;
       transform: translateY(-50%);
-      width: 10px;
-      height: 10px;
+      width: 14px;
+      height: 14px;
       background: var(--accent-hover);
       border-radius: 50%;
       animation: pulse 2s infinite;
