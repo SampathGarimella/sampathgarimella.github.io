@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sampath Garimella | Portfolio</title>
   <style>
+    html { scroll-behavior: smooth; }
     :root {
       --bg: #0d1117;
       --fg: #c9d1d9;
@@ -84,7 +85,7 @@
   <main>
     <section id="about" class="reveal">
       <h2>About Me</h2>
-      <p>Hi, I’m Sampath—a Full Stack Developer passionate about crafting high-quality code. With expertise in React, Node.js, TypeScript, Python, and AWS, I build scalable, performant applications while focusing on clean, maintainable solutions.</p>
+      <p>Hi, I’m Sampath, A Full Stack Developer passionate about crafting high-quality code. With expertise in React, Node.js, TypeScript, Python, and AWS, I build scalable, performant applications while focusing on clean, maintainable solutions.</p>
     </section>
     <section id="experience" class="reveal">
       <h2>Experience</h2>
@@ -144,6 +145,14 @@
   <footer>&copy; 2025 Sampath Garimella</footer>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Smooth scroll offset
+      document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        const navHeight = document.querySelector('nav').offsetHeight;
+        const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }));
       document.querySelectorAll('.reveal').forEach(sec => {
         new IntersectionObserver(entries => { entries.forEach(e => e.isIntersecting && sec.classList.add('visible')); }).observe(sec);
       });
