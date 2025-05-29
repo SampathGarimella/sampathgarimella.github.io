@@ -7,6 +7,7 @@
   <style>
     html { scroll-behavior: smooth; }
     :root {
+      --nav-height: 3rem;
       --bg: #0d1117;
       --fg: #c9d1d9;
       --accent: #58a6ff;
@@ -14,7 +15,8 @@
       --transition: 0.3s ease;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Fira Code', monospace; background: var(--bg); color: var(--fg); line-height: 1.6; overflow-x: hidden; }
+    body {
+      padding-top: var(--nav-height); font-family: 'Fira Code', monospace; background: var(--bg); color: var(--fg); line-height: 1.6; overflow-x: hidden; }
     header { background: var(--accent); color: #0d1117; padding: 3rem 1rem; position: relative; text-align: center; }
     header h1 { font-size: 2.5rem; margin-bottom: 0.25rem; }
     header p { font-size: 1.1rem; margin-bottom: 1rem; }
@@ -23,7 +25,19 @@
     .stats { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1rem; }
     .stat { background: var(--accent); color: #0d1117; padding: 0.4rem 0.8rem; border-radius: 4px; font-family: 'Fira Code', monospace; transition: background var(--transition); }
     .stat:hover { background: var(--accent-hover); }
-    nav { background: #161b22; display: flex; justify-content: center; gap: 1rem; padding: 0.75rem; position: sticky; top: 0; flex-wrap: wrap; }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #161b22;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0.75rem;
+      z-index: 100;
+      flex-wrap: wrap;
+    }
     nav a { color: var(--fg); text-decoration: none; font-weight: bold; transition: color var(--transition); }
     nav a:hover { color: var(--accent); }
     main { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
@@ -79,13 +93,13 @@
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
-    <a href="#ai">AI Chat</a>
+    <a href="#ai">AI</a>
     <a href="#contact">Contact</a>
   </nav>
   <main>
     <section id="about" class="reveal">
       <h2>About Me</h2>
-      <p>Hi, I’m Sampath, A Full Stack Developer passionate about crafting high-quality code. With expertise in React, Node.js, TypeScript, Python, and AWS, I build scalable, performant applications while focusing on clean, maintainable solutions.</p>
+      <p>Hi, I’m Sampath—a Full Stack Developer passionate about crafting high-quality code. With expertise in React, Node.js, TypeScript, Python, and AWS, I build scalable, performant applications while focusing on clean, maintainable solutions.</p>
     </section>
     <section id="experience" class="reveal">
       <h2>Experience</h2>
@@ -126,7 +140,7 @@
       </div>
     </section>
     <section id="ai" class="reveal">
-      <h2>AI Chat Assistant</h2>
+      <h2>AI</h2>
       <div class="chat-box" id="chatBox">
         <div class="message"><span class="ai">AI:</span> Hello! Ask me anything about development or AI.</div>
       </div>
