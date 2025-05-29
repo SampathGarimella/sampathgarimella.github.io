@@ -224,7 +224,7 @@
       document.getElementById('sendBtn').addEventListener('click', sendMessage);
       document.getElementById('userInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }});
     });
-    const googleApiKey = 'YOUR_GOOGLE_API_KEY';
+    const googleApiKey = 'AIzaSyCS940Z3l-Gi8N9adJZWRLp3gUH3b64IYc';
     async function sendToLLM(prompt) {
       document.getElementById('loader').style.display = 'inline-block';
       const systemMsg = { author: 'system', content: `...resume content...` };
