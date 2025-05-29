@@ -32,6 +32,18 @@
       gap: 2rem;
       margin-top: 1rem;
     }
+    .stat {
+      font-size: 1rem;
+      background: var(--accent);
+      color: #0d1117;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background var(--transition), color var(--transition);
+    }
+    .stat:hover {
+      background: var(--accent-hover);
+      color: #0d1117;
+    }
     .stat { font-size: 1rem; background: #161b22; padding: 0.5rem 1rem; border-radius: 4px; }
     .btn-download {
       position: absolute;
@@ -163,13 +175,8 @@
     </section>
     <section id="contact" class="reveal">
       <h2>Contact</h2>
-      <p>Feel free to reach out via the form below:</p>
-      <form class="cta-form" onsubmit="event.preventDefault(); alert('Thank you! I will get back to you soon.');">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea rows="4" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
+      <p>Email: <a href="mailto:sampath.garimella.dev@gmail.com" style="color: var(--accent); text-decoration: none;">sampath.garimella.dev@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/sampathgarimella" target="_blank" style="color: var(--accent); text-decoration: none;">linkedin.com/in/sampathgarimella</a></p>
     </section>
   </main>
   <footer>&copy; 2025 Sampath Garimella</footer>
