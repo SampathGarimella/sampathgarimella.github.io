@@ -155,7 +155,7 @@
       document.getElementById('sendBtn').addEventListener('click', sendMessage);
       document.getElementById('userInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }});
     });
-    const googleApiKey = 'YOUR_GOOGLE_API_KEY';
+    const googleApiKey = 'AIzaSyADwxambwnlwGjDvfeiVk6rU3AV8MTUY5I';
     async function sendToLLM(prompt) {
       document.getElementById('loader').style.display = 'inline-block';
       const systemMessage = {
