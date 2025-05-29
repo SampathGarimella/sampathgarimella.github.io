@@ -11,12 +11,11 @@
       --accent: #58a6ff;
       --accent-hover: #79c0ff;
       --transition: 0.3s ease;
-      --nav-height: 3rem;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Fira Code', monospace; background: var(--bg); color: var(--fg); line-height: 1.6;  overflow-x: hidden; }
-    header { background: var(--accent); color: #0d1117; padding: 3rem 1rem; text-align: center; }
+    body { font-family: 'Fira Code', monospace; background: var(--bg); color: var(--fg); line-height: 1.6; }
+    header { background: var(--accent); color: #0d1117; padding: 3rem 1rem; text-align: center; position: relative; }
     header h1 { font-size: 2.5rem; margin-bottom: 0.25rem; }
     header p { font-size: 1.1rem; margin-bottom: 1rem; }
     .btn-download { position: absolute; top: 1rem; right: 1rem; background: #0d1117; color: var(--accent); padding: 0.4rem 0.8rem; border: 1px solid var(--accent); border-radius: 4px; text-decoration: none; transition: background var(--transition), color var(--transition); }
@@ -24,39 +23,29 @@
     .stats { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1rem; }
     .stat { background: var(--accent); color: #0d1117; padding: 0.4rem 0.8rem; border-radius: 4px; font-family: 'Fira Code', monospace; transition: background var(--transition); }
     .stat:hover { background: var(--accent-hover); }
-    nav {
-  position: sticky;
-  top: 0;
-  background: #161b22;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  padding: 0.75rem 1rem;
-  z-index: 100;
-  flex-wrap: wrap;
-}
+    nav { position: sticky; top: 0; background: #161b22; display: flex; justify-content: center; gap: 1rem; padding: 0.75rem 1rem; z-index: 100; flex-wrap: wrap; }
     nav a { color: var(--fg); text-decoration: none; font-weight: bold; transition: color var(--transition); }
     nav a:hover { color: var(--accent); }
     main { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
-    section { margin-bottom: 3.5rem; opacity: 0; transform: translateY(30px); transition: all 0.6s ease; scroll-margin-top: calc(var(--nav-height) + 1rem); }
+    section { margin-bottom: 3.5rem; opacity: 0; transform: translateY(30px); transition: all 0.6s ease; scroll-margin-top: 90px; }
     section.visible { opacity: 1; transform: translateY(0); }
     h2 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--accent); border-bottom: 1px solid #30363d; padding-bottom: 0.5rem; }
     .timeline { border-left: 2px solid var(--accent); padding-left: 2rem; }
-    .timeline-item { position: relative; margin-bottom: 3rem; }
-    .timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -1rem;
-  top: 0.5rem; /* align at the company title */
-  width: 10px;
-  height: 10px;
-  background: var(--accent-hover);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-    .timeline-item h3 { margin-bottom: 0.5rem; }
+    .timeline-item { margin-bottom: 3rem; }
+    .timeline-item h3 { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+    .timeline-item h3::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 10px;
+      background: var(--accent-hover);
+      border-radius: 50%;
+    }
     .timeline-item .role { display: block; margin-bottom: 0.75rem; font-style: italic; color: #8b949e; font-size: 0.9rem; }
-    .timeline-item p { margin-left: 0.75rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
+    .timeline-item p { margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
     @keyframes pulse {0%,100% {transform: translateY(-50%) scale(1); opacity:1;}50% {transform: translateY(-50%) scale(1.3); opacity:0.6;}}
     .skills { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .skill { background: #21262d; color: var(--accent); padding: 0.4rem 0.75rem; border-radius: 4px; font-family: 'Fira Code', monospace; }
@@ -73,7 +62,7 @@
     .loader { border: 3px solid #21262d; border-top: 3px solid var(--accent); border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; margin-left: 6px; display: none; }
     @keyframes spin {0% {transform: rotate(0deg);}100% {transform: rotate(360deg);} }
     footer { text-align: center; padding: 1.5rem 0; color: #57606a; border-top: 1px solid #21262d; }
-    @media (max-width: 600px) {header h1 {font-size: 2rem;}header p {font-size: 1rem;}nav {gap: 0.5rem;}h2 {font-size: 1.5rem;} .timeline {padding-left: 1rem;} .timeline-item::before {left: -0.85rem;} .timeline-item {margin-bottom: 2rem;} .chat-box {height: 180px;}}
+    @media (max-width: 600px) {header h1 {font-size: 2rem;}header p {font-size: 1rem;}nav {gap: 0.5rem;}h2 {font-size: 1.5rem;} .timeline {padding-left: 1rem;} .timeline-item h3::before {left: -0.75rem;} .timeline-item h3 {padding-left: 1rem;} .timeline-item {margin-bottom: 2rem;} .chat-box {height: 180px;}}
   </style>
 </head>
 <body>
@@ -166,85 +155,30 @@
         new IntersectionObserver(entries => { entries.forEach(e => e.isIntersecting && sec.classList.add('visible')); }, { threshold: 0.1 }).observe(sec);
       });
       document.getElementById('sendBtn').addEventListener('click', sendMessage);
-      document.getElementById('userInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }});
+      document.getElementById('userInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendMessage(); } });
     });
     const googleApiKey = 'YOUR_GOOGLE_API_KEY';
     async function sendToLLM(prompt) {
       document.getElementById('loader').style.display = 'inline-block';
-      const systemMsg = {
-        author: 'system',
-        content: `SAMPATH GARIMELLA
-Los Angeles, CA | sampath.garimella.dev@gmail.com | (628) 309-5036 | LinkedIn | Github | Website
-
-SUMMARY
-Full Stack Developer with 4+ years of experience designing and delivering scalable web and mobile applications across logistics, healthcare, and telecommunications industries. Expert in JavaScript, React.js, Node.js, TypeScript, and cloud platforms (AWS, Azure). Proven track record in microservices architecture, CI/CD, API integrations, performance optimization, and agile methodologies.
-
-EXPERIENCE
-Mastery Logistics Systems – Atlanta, GA (Oct 2024 - Present)
-Role: Full Stack Developer
-• Developing solutions for carrier operations, focusing on managing driver data, routes, loads, and client interactions to optimize logistics workflows.
-• Increased operational efficiency by 25% by implementing features to optimize driver profiles, routes, and load data.
-• Implemented unit tests using Jest to ensure code stability and enhance the reliability of the application.
-• Crafted scalable user interfaces with React.js, TypeScript, and Redux, leveraging components for maintainability.
-• Spearheading the development of a logistics driver mobile app, integrating frontend and backend functionalities.
-• Configured Nginx for load balancing in production environments to ensure high-availability and scalability.
-• Integrated RESTful APIs and GraphQL for seamless data flow between frontend and backend services, improving data accuracy and system reliability.
-
-UPMC – Pittsburgh, PA (Dec 2023 – Sep 2024)
-Role: Full Stack Developer
-• Designed and implemented scalable full-stack solutions, enhancing robust healthcare technology platforms.
-• Deployed microservices on AWS using EC2 and Lambda to enhance scalability and reduce latency.
-• Built reusable backend services with Node.js and Docker, improving code reusability.
-• Worked with Freemarker for templating dynamic content and integrating data into web applications.
-• Increased application performance by 20% by designing and managing optimized database schemas with MongoDB and PostgreSQL, implementing advanced query optimizations.
-
-Cigna – Overland Park, KS (Jan 2022 – Nov 2023)
-Role: Full Stack Developer
-• Developed robust healthcare applications prioritizing scalability, performance, and user-focused design principles.
-• Implemented comprehensive full-stack solutions, optimizing workflows and boosting overall system efficiency.
-• Boosted user engagement by 10% through React Native mobile apps, expanding access to healthcare services.
-• Enhanced data processing efficiency by configuring Apache Kafka with Spring Cloud Stream for real-time analysis.
-
-Tech Mahindra (Jan 2021 – Dec 2021)
-Role: Web Developer
-• Contributed to the development of responsive and high-performing web applications, ensuring seamless user experiences and efficient backend integrations.
-• Improved website loading speed by 20% by implementing front-end optimizations using HTML5, CSS3, JavaScript, and Bootstrap, enhancing user experience.
-• Reduced front-end bug reports by 30% by implementing rigorous cross-browser testing and optimization strategies.
-
-TECHNICAL SKILLS
-Languages: JavaScript, TypeScript, Python, Java, HTML5, CSS3, SQL
-Frameworks & Libraries: React.js, Redux, Node.js, Spring Boot, React Native, Angular, Next.js, Bootstrap, Tailwind CSS, Django, Flask
-Databases: MongoDB, PostgreSQL, MySQL, Microsoft SQL Server, DynamoDB, Redis
-Other Tools & Technologies: AWS (Lambda, EC2, S3, CloudWatch, CloudFormation), Azure, Google Cloud Platform (GCP), Docker, Kubernetes, Terraform, Nginx, Freemarker, Jenkins, Kafka, GraphQL, Apollo, RESTful APIs, CI/CD, Elasticsearch, New Relic, Datadog, Grafana, Selenium, Cypress, Postman
-Development Practices: Agile Methodologies, Unit Testing (Jest), Version Control (Git, GitHub, GitLab, Bitbucket)
-Collaboration Tools: Jira, Confluence, Slack
-
-EDUCATION
-University at Buffalo SUNY, Master's Degree, Computer Science, Buffalo, NY
-KL University, Bachelor’s Degree, Computer Science, India
-      `
-      };
+      const systemMsg = { author: 'system', content: `...resume content...` };
       try {
-        // Try chat model first
-        let url = `https://generativelanguage.googleapis.com/v1beta3/models/chat-bison-001:generateMessage?key=${googleApiKey}`;
-        let body = JSON.stringify({ prompt: { messages: [systemMsg, { author: 'user', content: prompt }] } });
-        let res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body });
-        if (res.status === 404) {
-          // Fallback to text model
+        const listRes = await fetch(`https://generativelanguage.googleapis.com/v1beta3/models?key=${googleApiKey}`);
+        const listData = await listRes.json();
+        const modelList = listData.models.map(m => m.name);
+        const useChat = modelList.includes('models/chat-bison-001');
+        let url, body;
+        if (useChat) {
+          url = `https://generativelanguage.googleapis.com/v1beta3/models/chat-bison-001:generateMessage?key=${googleApiKey}`;
+          body = JSON.stringify({ prompt: { messages: [systemMsg, { author: 'user', content: prompt }] } });
+        } else {
           url = `https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText?key=${googleApiKey}`;
-          body = JSON.stringify({ prompt: { text: `${systemMsg.content}
-
-User: ${prompt}` } });
-          res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body });
+          body = JSON.stringify({ prompt: { text: `${systemMsg.content}\nUser: ${prompt}` } });
         }
-        if (!res.ok) {
-          const err = await res.text();
-          return `API Error ${res.status}: ${err}`;
-        }
+        const res = await fetch(url, { method: 'POST', headers: { 'Content-Type':'application/json' }, body });
+        if (!res.ok) { const err = await res.text(); return `API Error ${res.status}: ${err}`; }
         const data = await res.json();
-        // Handle both chat and text responses
         const candidate = data.candidates && data.candidates[0];
-        return candidate?.content || candidate?.output || 'No response';
+        return candidate ? (candidate.content || candidate.output) : 'No response';
       } catch (e) {
         return `Error: ${e.message}`;
       } finally {
