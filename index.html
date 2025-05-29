@@ -168,8 +168,45 @@
       document.getElementById('sendBtn').addEventListener('click', sendMessage);
       document.getElementById('userInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }});
     });
-    const googleApiKey = 'AIzaSyADwxambwnlwGjDvfeiVk6rU3AV8MTUY5I';
+    const googleApiKey = 'YOUR_GOOGLE_API_KEY';
     async function sendToLLM(prompt) {
+      document.getElementById('loader').style.display = 'inline-block';
+      // Fetch available models to choose correct endpoint
+      let modelList;
+      try {
+        const listRes = await fetch(`https://generativelanguage.googleapis.com/v1beta3/models?key=${googleApiKey}`);
+        const listData = await listRes.json();
+        modelList = listData.models.map(m => m.name);
+      } catch (e) {
+        console.warn('Could not fetch model list:', e);
+        modelList = [];
+      }
+      // Determine chat vs text endpoint
+      const useChat = modelList.some(name => name.includes('chat-bison-001'));
+      let url, body, res;
+      const systemMsg = { author: 'system', content: /* your resume content */ '' };
+      try {
+        if (useChat) {
+          url = `https://generativelanguage.googleapis.com/v1beta3/models/chat-bison-001:generateMessage?key=${googleApiKey}`;
+          body = JSON.stringify({ prompt: { messages: [ systemMsg, { author: 'user', content: prompt } ] } });
+        } else {
+          url = `https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText?key=${googleApiKey}`;
+          body = JSON.stringify({ prompt: { text: `${systemMsg.content}
+User: ${prompt}` } });
+        }
+        res = await fetch(url, { method: 'POST', headers: { 'Content-Type':'application/json' }, body });
+        if (!res.ok) {
+          const errText = await res.text();
+          return `API Error ${res.status}: ${errText}`;
+        }
+        const data = await res.json();
+        const candidate = data.candidates ? data.candidates[0] : null;
+        return candidate ? (candidate.content || candidate.output) : 'No response';
+      } catch (e) {
+        return `Error: ${e.message}`;
+      } finally {
+        document.getElementById('loader').style.display = 'none';
+      }
       document.getElementById('loader').style.display = 'inline-block';
       const systemMsg = {
         author: 'system',
