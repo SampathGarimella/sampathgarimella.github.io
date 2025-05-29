@@ -125,7 +125,7 @@
     <section id="ai" class="reveal">
       <h2>AI</h2>
       <div class="chat-box" id="chatBox">
-        <div class="message"><span class="ai">AI:</span> Hello! Ask me about myself and my technologies.</div>
+        <div class="message"><span class="ai">AI:</span> Hello! Ask me about myself and my technologies (JavaScript, TypeScript, React.js, Node.js, Python, Java, AWS, Azure, Docker, Kubernetes, GraphQL, Kafka, MongoDB, PostgreSQL, MySQL, Jenkins, Nginx, Freemarker, Jest, CI/CD, Git & GitHub).</div>
       </div>
       <div class="input-box">
         <input type="text" id="userInput" placeholder="Type your question...">
@@ -158,7 +158,7 @@
     const googleApiKey = 'AIzaSyADwxambwnlwGjDvfeiVk6rU3AV8MTUY5I';
     async function sendToLLM(prompt) {
       document.getElementById('loader').style.display = 'inline-block';
-      const systemMessage = {
+      const systemMsg = {
         author: 'system',
         content: `SAMPATH GARIMELLA
 Los Angeles, CA | sampath.garimella.dev@gmail.com | (628) 309-5036 | LinkedIn | Github | Website
@@ -209,15 +209,30 @@ Collaboration Tools: Jira, Confluence, Slack
 EDUCATION
 University at Buffalo SUNY, Master's Degree, Computer Science, Buffalo, NY
 KL University, Bachelor’s Degree, Computer Science, India
-`};
+      `
+      };
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta1/models/chat-bison-001:generateMessage?key=${googleApiKey}`;
-        const body = JSON.stringify({ prompt: { messages: [systemMessage, { author: 'user', content: prompt }] } });
-        const res = await fetch(url, { method:'POST', headers:{ 'Content-Type':'application/json' }, body });
-        if (!res.ok) { const err = await res.text(); return `API Error ${res.status}: ${err}`; }
+        // Try chat model first
+        let url = `https://generativelanguage.googleapis.com/v1beta3/models/chat-bison-001:generateMessage?key=${googleApiKey}`;
+        let body = JSON.stringify({ prompt: { messages: [systemMsg, { author: 'user', content: prompt }] } });
+        let res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body });
+        if (res.status === 404) {
+          // Fallback to text model
+          url = `https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText?key=${googleApiKey}`;
+          body = JSON.stringify({ prompt: { text: `${systemMsg.content}
+
+User: ${prompt}` } });
+          res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body });
+        }
+        if (!res.ok) {
+          const err = await res.text();
+          return `API Error ${res.status}: ${err}`;
+        }
         const data = await res.json();
-        return data.candidates?.[0]?.content || 'No response';
-      } catch(e) {
+        // Handle both chat and text responses
+        const candidate = data.candidates && data.candidates[0];
+        return candidate?.content || candidate?.output || 'No response';
+      } catch (e) {
         return `Error: ${e.message}`;
       } finally {
         document.getElementById('loader').style.display = 'none';
