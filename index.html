@@ -34,11 +34,15 @@
     }
     .stat {
       font-size: 1rem;
-      background: var(--accent);
-      color: #0d1117;
+      background: var(--accent) !important;   /* Always show blue */
+      color: #0d1117;                          /* Dark text on blue */
       padding: 0.5rem 1rem;
       border-radius: 4px;
       transition: background var(--transition), color var(--transition);
+    }
+    .stat:hover, .stat:active, .stat:focus {
+      background: var(--accent-hover) !important;  /* Lighter blue on interaction */
+      color: #0d1117;
     }
     .stat:hover {
       background: var(--accent-hover);
