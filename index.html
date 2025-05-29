@@ -6,113 +6,104 @@
   <title>Sampath Garimella | Portfolio</title>
   <style>
     :root {
-      --bg: #f4f4f4;
-      --fg: #1e293b;
-      --accent: #61dafb;          /* Code-themed React blue */
-      --accent-hover: #21a1f1;
+      --bg: #0d1117;           /* Dark code editor background */
+      --fg: #c9d1d9;           /* Light code text color */
+      --accent: #58a6ff;       /* GitHub blue */
+      --accent-hover: #79c0ff;
       --transition: 0.3s ease;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Fira Code', monospace;
       background: var(--bg);
       color: var(--fg);
       overflow-x: hidden;
+      line-height: 1.6;
     }
     header {
       position: relative;
-      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-      color: white;
-      text-align: center;
-      padding: 6rem 1rem 2rem;
-      z-index: 1;
+      background: var(--accent);
+      color: #0d1117;
+      text-align: left;
+      padding: 4rem 2rem;
     }
-    .hero-svg { position: absolute; bottom: 0; left: 0; width: 100%; height: 150px; }
+    header h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+    header p { font-size: 1.25rem; }
     nav {
-      background: white;
+      background: #161b22;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       gap: 2rem;
-      padding: 1rem 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 1rem 2rem;
       position: sticky;
       top: 0;
       z-index: 100;
     }
     nav a {
-      color: var(--accent);
+      color: var(--fg);
       text-decoration: none;
-      font-weight: 600;
-      position: relative;
-      padding: 0.5rem;
+      font-weight: bold;
       transition: color var(--transition);
     }
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 50%; bottom: 0;
-      width: 0; height: 3px;
-      background: var(--accent);
-      transition: width var(--transition), left var(--transition);
-    }
-    nav a:hover, nav a:hover::after {
-      color: var(--accent-hover);
-      width: 100%; left: 0;
-    }
-    main { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
-    section { margin-bottom: 4rem; opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    nav a:hover { color: var(--accent); }
+    main { max-width: 800px; margin: 3rem auto; padding: 0 2rem; }
+    section { margin-bottom: 3rem; opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
     section.visible { opacity: 1; transform: translateY(0); }
-    h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
-    /* Timeline adjustments */
-    .timeline { border-left: 3px solid var(--accent); padding-left: 2rem; margin-left: 1rem; }
-    .timeline-item { position: relative; margin-bottom: 2.5rem; }
+    h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); border-bottom: 1px solid #30363d; padding-bottom: 0.5rem; }
+    .timeline { border-left: 2px solid var(--accent); padding-left: 1rem; margin-left: 0.5rem; }
+    .timeline-item { position: relative; margin-bottom: 2rem; }
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -1.3rem; top: 50%; transform: translateY(-50%);
-      width: 14px; height: 14px;
+      left: -0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 10px;
       background: var(--accent-hover);
       border-radius: 50%;
       animation: pulse 2s infinite;
     }
-    @keyframes pulse { 0%,100% { transform: translateY(-50%) scale(1); opacity:1;} 50% {transform: translateY(-50%) scale(1.3); opacity:0.6;} }
-    .skills, .projects { display: flex; flex-wrap: wrap; gap: 1rem; }
-    .skill, .project-card {
-      background: var(--accent); color: white;
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      transition: transform var(--transition), box-shadow var(--transition);
-      cursor: default;
-    }
-    .skill:hover, .project-card:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    .project-card { background: var(--fg); color: white; width: calc(50% - 1rem); }
-    .project-card a { color: white; text-decoration: none; font-weight: bold; }
-    .chat-box { border: 1px solid #ccc; background: white; height: 300px; overflow-y: auto; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    @keyframes pulse { 0%,100% { transform: translateY(-50%) scale(1); opacity:1;} 50% {transform: translateY(-50%) scale(1.4); opacity:0.6;} }
+    .skills { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .skill { background: #21262d; color: var(--accent); padding: 0.5rem 1rem; border-radius: 4px; font-family: 'Fira Code', monospace; }
+    .chat-box { border: 1px solid #30363d; background: #161b22; color: var(--fg); height: 250px; overflow-y: auto; padding: 1rem; border-radius: 4px; }
     .message { margin: 0.5rem 0; }
-    .user { font-weight: bold; color: var(--accent); }
-    .ai { font-weight: bold; color: var(--accent-hover); }
-    .input-box { display: flex; align-items: center; margin-top: 1rem; }
-    .input-box input { flex: 1; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px 0 0 4px; outline: none; transition: border-color var(--transition); }
-    .input-box input:focus { border-color: var(--accent); }
-    .input-box button { padding: 0.5rem 1rem; background: var(--accent); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; transition: background var(--transition); }
+    .user { color: var(--accent); font-weight: bold; }
+    .ai { color: var(--accent-hover); font-weight: bold; }
+    .input-box { display: flex; margin-top: 1rem; }
+    .input-box input {
+      flex: 1;
+      padding: 0.5rem;
+      background: #0d1117;
+      color: var(--fg);
+      border: 1px solid #30363d;
+      border-radius: 4px 0 0 4px;
+      font-family: 'Fira Code', monospace;
+    }
+    .input-box input:focus { outline: none; border-color: var(--accent); }
+    .input-box button {
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: #0d1117;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      font-family: 'Fira Code', monospace;
+    }
     .input-box button:hover { background: var(--accent-hover); }
-    .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; margin-left: 10px; display: none; }
+    .loader { border: 3px solid #21262d; border-top: 3px solid var(--accent); border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; margin-left: 8px; display: none; }
     @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
-    footer { text-align: center; padding: 2rem 0; font-size: 0.9rem; color: #666; }
+    footer { text-align: center; padding: 2rem 0; color: #57606a; border-top: 1px solid #21262d; }
   </style>
 </head>
 <body>
   <header>
     <h1>Sampath Garimella</h1>
     <p>Full Stack Developer & AI Enthusiast</p>
-    <svg class="hero-svg" viewBox="0 0 800 200" preserveAspectRatio="none"><path fill="white" d="M0,100 C200,200 400,0 800,100 L800,200 L0,200 Z"></path></svg>
   </header>
   <nav>
     <a href="#about">About</a>
-    <a href="#projects">Portfolio</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
     <a href="#ai">AI Chat</a>
@@ -121,32 +112,41 @@
   <main>
     <section id="about" class="reveal">
       <h2>About Me</h2>
-      <p>Hi, I’m Sampath—a Full Stack Developer with a passion for building intuitive web and mobile experiences.<br>
-      I specialize in React, Node.js, TypeScript, AWS, and crafting solutions that drive business value and delight users.</p>
-    </section>
-    <section id="projects" class="reveal">
-      <h2>Portfolio</h2>
-      <div class="projects">
-        <div class="project-card"><a href="#">Logistics Dashboard</a><p>React/Redux real-time dashboard with maps and analytics.</p></div>
-        <div class="project-card"><a href="#">Healthcare Mobile App</a><p>React Native app for patient management and telehealth.</p></div>
-        <div class="project-card"><a href="#">GitHub Pages Portfolio</a><p>Static site with custom domain and AI chat integration.</p></div>
-        <div class="project-card"><a href="#">Streaming Pipeline</a><p>Real-time data processing via Kafka & Spring Cloud Stream.</p></div>
-      </div>
+      <p>Hi, I’m Sampath—a Full Stack Developer passionate about crafting high-quality code.
+      With expertise in React, Node.js, and TypeScript, I thrive in agile teams building scalable, performant applications.
+      I love turning complex problems into elegant solutions.</p>
     </section>
     <section id="experience" class="reveal">
       <h2>Experience</h2>
       <div class="timeline">
-        <div class="timeline-item"><h3>Mastery Logistics Systems (Oct 2024–Present)</h3><p>Optimized workflows, built React dashboards, and ensured HA with Nginx.</p></div>
-        <div class="timeline-item"><h3>UPMC (Dec 2023–Sep 2024)</h3><p>Deployed AWS microservices, optimized DB schemas, and templated with Freemarker.</p></div>
-        <div class="timeline-item"><h3>Cigna (Jan 2022–Nov 2023)</h3><p>Developed React Native apps, CI/CD pipelines, and real-time Kafka streams.</p></div>
-        <div class="timeline-item"><h3>Tech Mahindra (Jan 2021–Dec 2021)</h3><p>Delivered responsive sites, boosted performance, and cross-browser testing.</p></div>
+        <div class="timeline-item">
+          <h3>Mastery Logistics Systems (Oct 2024 – Present)</h3>
+          <p>Optimized logistics workflows, built React dashboards, and configured high-availability infrastructures.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>UPMC (Dec 2023 – Sep 2024)</h3>
+          <p>Deployed AWS microservices, enhanced database performance, and integrated Freemarker templates.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Cigna (Jan 2022 – Nov 2023)</h3>
+          <p>Developed React Native mobile apps, automated CI/CD pipelines, and processed real-time Kafka streams.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Tech Mahindra (Jan 2021 – Dec 2021)</h3>
+          <p>Built responsive web solutions, improved page load times, and conducted cross-browser testing.</p>
+        </div>
       </div>
     </section>
     <section id="skills" class="reveal">
       <h2>Skills</h2>
       <div class="skills">
-        <div class="skill">JavaScript</div><div class="skill">TypeScript</div><div class="skill">React.js</div><div class="skill">Node.js</div><div class="skill">AWS</div>
-        <div class="skill">Docker</div><div class="skill">Kubernetes</div><div class="skill">GraphQL</div><div class="skill">Kafka</div><div class="skill">CI/CD</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">TypeScript</div>
+        <div class="skill">React.js</div>
+        <div class="skill">Node.js</div>
+        <div class="skill">AWS</div>
+        <div class="skill">Docker</div>
+        <div class="skill">Kubernetes</div>
       </div>
     </section>
     <section id="ai" class="reveal">
@@ -154,7 +154,11 @@
       <div class="chat-box" id="chatBox">
         <div class="message"><span class="ai">AI:</span> Hello! Ask me anything about development or AI.</div>
       </div>
-      <div class="input-box"><input type="text" id="userInput" placeholder="Type your question..."><button id="sendBtn">Send</button><div id="loader" class="loader"></div></div>
+      <div class="input-box">
+        <input type="text" id="userInput" placeholder="Type your question...">
+        <button id="sendBtn">Send</button>
+        <div id="loader" class="loader"></div>
+      </div>
     </section>
     <section id="contact" class="reveal">
       <h2>Contact</h2>
@@ -166,13 +170,28 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('sendBtn').addEventListener('click', sendMessage);
-      document.getElementById('userInput').addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); sendMessage(); }});
-      document.querySelectorAll('.reveal').forEach(sec => new IntersectionObserver(entries => { entries.forEach(e => e.isIntersecting && sec.classList.add('visible')); }).observe(sec));
+      document.getElementById('userInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }});
+      document.querySelectorAll('.reveal').forEach(sec => new IntersectionObserver(entries => { entries.forEach(entry => entry.isIntersecting && sec.classList.add('visible')); }).observe(sec));
     });
-    function toggleTheme(){ const r=document.documentElement, d=r.getAttribute('data-theme')==='dark'; r.setAttribute('data-theme', d?'light':'dark'); }
-    const googleApiKey='YOUR_GOOGLE_API_KEY';
-    async function sendToLLM(prompt){ document.getElementById('loader').style.display='inline-block'; try{ const url=`https://generativelanguage.googleapis.com/v1beta1/models/chat-bison-001:generateMessage?key=${googleApiKey}`; const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:{messages:[{author:'system',content:'You are a helpful assistant.'},{author:'user',content:prompt}]}})}); if(!res.ok){const e=await res.text();return`API Error ${res.status}: ${e}`;}const d=await res.json();return d.candidates?.[0]?.content||'No response';}catch(e){return`Error: ${e.message}`;}finally{document.getElementById('loader').style.display='none';}}
-    async function sendMessage(){const i=document.getElementById('userInput'),c=document.getElementById('chatBox'),t=i.value.trim();if(!t)return;c.innerHTML+=`<div class="message"><span class="user">You:</span> ${t}</div>`,i.value='',c.scrollTop=c.scrollHeight;const r=await sendToLLM(t);c.innerHTML+=`<div class="message"><span class="ai">AI:</span> ${r}</div>`,c.scrollTop=c.scrollHeight;}
+    async function sendToLLM(prompt) {
+      document.getElementById('loader').style.display = 'inline-block';
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta1/models/chat-bison-001:generateMessage?key=${googleApiKey}`;
+        const res = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ prompt:{ messages:[{author:'system',content:'You are a helpful assistant.'},{author:'user',content:prompt}] } }) });
+        if (!res.ok) { const err = await res.text(); return `API Error ${res.status}: ${err}`; }
+        const data = await res.json();
+        return data.candidates?.[0]?.content || 'No response';
+      } catch (e) { return `Error: ${e.message}`; }
+      finally { document.getElementById('loader').style.display = 'none'; }
+    }
+    async function sendMessage() {
+      const i = document.getElementById('userInput'), c = document.getElementById('chatBox'), t = i.value.trim(); if (!t) return;
+      c.innerHTML += `<div class="message"><span class="user">You:</span> ${t}</div>`;
+      i.value = ''; c.scrollTop = c.scrollHeight;
+      const r = await sendToLLM(t);
+      c.innerHTML += `<div class="message"><span class="ai">AI:</span> ${r}</div>`;
+      c.scrollTop = c.scrollHeight;
+    }
   </script>
 </body>
 </html>
